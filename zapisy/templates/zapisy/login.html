@@ -1,0 +1,15 @@
+{% extends 'zapisy/base.html' %}
+
+{% block content %}
+<div class="col-1 col-lg-3"></div>
+<div class="col-10 col-lg-6">
+<h3>Zapisy</h3>
+    <h4 style="color: red">{{ info }}</h4>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p}}
+    <button class="btn btn-success" type="submit">Zaloguj</button>
+    </form>
+</div>
+<div class="col-1 col-lg-3"></div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'zapisy/base.html' %}
+
+{% block content %}
+<div class="col-0 col-lg-2"></div>
+<div class="col-12 col-lg-8">
+    <br>
+<h3>Panel użytkownika</h3>
+</div>
+<div class="col-0 col-lg-2"></div>
+<div class="col-1 col-lg-2"></div>
+<div class="col-10 col-lg-3">
+<h4>Polski</h4>
+{% if polski_zapis %}
+<form method="get" action="/zapisy=polski/">
+    <button class="btn btn-success" type="submit">Zapisz się</button>
+</form>
+{% else %}
+Nauczyciel: {{ polski.teacher_name }} {{ polski.teacher_surename }}<br>
+Data: {{ polski.date }} {{ polski.hour }}
+
+<form method="POST" action="/wypis/">
+    {% csrf_token %}
+    
+    <button class="btn btn-danger" type="submit" name="id" value="{{ polski.id }}">Wypisz się</button>
+</form>
+{% endif %}
+</div>
+<div class="col-1 col-lg-0"></div>
+<div class="col-1 col-lg-0"></div>
+<div class="col-10 col-lg-5">
+{% if obcy_zapis %}
+<h4>Obcy</h4>
+<form method="get" action="/zapisy=obcy/">
+    <button class="btn btn-success" type="submit">Zapisz się</button>
+</form>
+{% else %}
+<h4>{{ obcy.language }}</h4>
+Nauczyciel: {{ obcy.teacher_name }} {{ obcy.teacher_surename }}<br>
+Data: {{ obcy.date }} {{ obcy.hour }}
+<form method="POST" action="/wypis/">
+    {% csrf_token %}
+    <button class="btn btn-danger" type="submit" name="id" value="{{ obcy.id }}">Wypisz się</button>
+</form>
+{% endif %}
+</div>
+<div class="col-1 col-lg-2"></div>
+{% endblock %}

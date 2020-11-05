@@ -1,0 +1,41 @@
+{% extends 'zapisy/base.html' %}
+
+{% block content %}
+<div class="col-12">
+<h3>Zapisy na egzamin ustny</h3>
+    </div>
+{% if obcy %}
+<div class="col-12">
+<form method="POST">
+    {% csrf_token %}
+    {{ form }}
+<button class="btn btn-primary" type="submit">Wyszukaj</button>
+</form>
+</div>
+{% endif %}
+<div class="col-12">
+<h4 style="color: red">{{ message }}</h4>
+</div>
+{% for termin in terminy %}
+<div class="col-12 col-md-6 col-lg-4">
+<h4>{{ termin.language }}</h4>
+Nauczyciel: {{ termin.teacher_name }} {{ termin.teacher_surename }}<br>
+Data: {{ termin.date }} {{ termin.hour }}
+
+
+
+
+<form method="POST" action="/thanks/">
+    {% csrf_token %}
+    
+    <button class="btn btn-success" type="submit" name="id" value="{{ termin.id }}">Zapisz się</button>
+</form>
+
+</div>
+{% endfor %}
+{% if exists %}
+<div class="col-12">
+<h4>Brak wyników</h4>
+</div>
+{% endif %}
+{% endblock %}
